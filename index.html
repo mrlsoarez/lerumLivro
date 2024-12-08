@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+
+        * {
+            padding: 0;
+            margin: 0;
+            font-family: 'Courier New', Courier, monospace;
+        }
+        
+        :root {
+            --main: rgb(152, 224, 255);
+            --darker: rgb(112, 150, 180);
+        }
+
+        main {
+            display: grid;
+            grid-template-areas: 
+            "head head head right"
+            "left left left right"
+            "left left left right";   
+            grid-template-rows: 15%;  
+            grid-template-columns: 20% 10% 30%;  
+            height: 100vh;
+            width: 100vw;
+            border: 5px solid black;
+            overflow: hidden;
+        }
+
+        header {
+            display: flex;
+            align-items: center;
+            background-color: var(--main);
+            grid-area: head;
+            color: white;
+        }
+        
+        header > h1 {
+            padding: 10px;
+            font-weight: 100;
+        }
+
+        header > img {
+            width: 12%;
+        }
+
+        .sect-1 {
+            display: flex;
+            justify-content: center;
+            grid-area: left;
+            padding: 20px;
+            background-image: url("e91170f13c00f6484fc957d5429d8179-1576865378.jpg");
+            background-blend-mode: difference;
+        }
+
+        .sect-1 > * {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 40%;
+            height: 60%;
+            font-weight: bolder;
+        }
+
+        .sect-1 > * > #img {
+            width: 85%;
+            height: 85%; 
+            border-radius: 60%;
+            animation: girar 500s linear infinite;
+        }
+
+        .sect-1 > * > p {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            font-size: 25px;
+        }
+
+        .sect-1 > * > #img > img {
+            width: 100%;
+            height: 100%; 
+            object-fit: cover;
+            border-radius: 60%;
+        }
+
+        .sect-1 > *:nth-child(2) {
+            position: relative;
+            top: 25%;
+        }
+
+        .sect-2 {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            grid-area: right;
+            width: 40vw;
+            background: var(--darker);
+            padding: 10px;
+            position: relative;
+        }
+
+        /* Adding the wobbly effect */
+        .sect-2::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 15px;
+            height: 100%;
+            background-color: var(--darker); /* You can change the color */
+            animation: wobble 3s infinite ease-in-out;
+        }
+
+        @keyframes wobble {
+            0% {
+                transform: translateX(0);
+            }
+            50% {
+                transform: translateX(-10px); /* Adjust the distance of wobble */
+            }
+            100% {
+                transform: translateX(0);
+            }
+        }
+
+        .sect-2 .title {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 20%;
+            color: white;
+        }
+
+        
+
+        .sect-2 .form {
+            display: flex;
+            flex-direction: column;
+            justify-content: start;
+            align-items: center;
+            height: 40%;
+        }
+
+        .sect-2 .submitter {
+            height: 10%;
+            width: 50%;
+            border-radius: 25px;
+            border: none;
+        }
+
+
+       
+
+        .sect-2 .form.container > form {
+            width: 100%;
+            padding: 5px;
+            background: var(--darker-main);
+            border-radius: 25px;
+            padding: 15px;
+        }
+
+        .sect-2 .form.container > form > section {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sect-2 .form.container > form > section a{
+            color: white;
+            font-style: none;
+        }
+
+        .sect-2 .form.container > form > section > input {
+            width: 90%;
+            height: 35px;
+            outline: none;
+            font-size: 15px;
+        }
+
+        /* IF LOGIN */
+        @keyframes zoom {
+            0% {
+                opacity: 0;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        .sect-2 .container.login {
+            animation: 1s zoom ease-in;
+        }
+
+        .sect-2 .form.container.login > form {
+            width: 90%;
+        }
+
+        /* IF SIGNUP */
+        .sect-2 .container.signup {
+            animation: 1s zoom ease-in forwards;
+        }
+
+        .sect-2 .form.container.signup > form {
+            height: 90%;
+        }
+
+        main > #greek {
+            position: absolute;
+            width: 40%;
+            left: -150px;
+            animation: chegar forwards 0.5s;
+            clip-path: inset(0 0 13% 0)
+        }
+
+        @keyframes chegar {
+            0% {
+                bottom: 900px;
+            }
+            100% {
+                bottom: -80px;
+            }
+        }
+
+        @keyframes girar {
+            0% {
+                transform: rotate(0deg); 
+                border: 2px solid var(--main)
+            }
+            100% {
+                transform: rotate(360deg);
+                border: 5px solid var(--darker-main)
+            }
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <header>
+            <h1>lerumLivro</h1>
+            <img src="output-onlinegiftools.gif" id="book">
+        </header>
+        <section class="sect-1">
+            <section>
+                <div id="img"><img src="./881-8819849_bookshelf-isolated-transparent-background-books-shelf.png"></div>
+            </section>
+            <section>
+                <div id="img"><img src="./GettyImages-601815605-57730d805f9b5858753a8421.jpg"></div>
+            </section>
+        </section>
+        <section class="sect-2">
+            <h2 class="title container login"></h2>
+            <section class="form container login"></section>
+            <button class="submitter container login"></button>  
+        </section>
+        <img id="greek" src="vecteezy_ai-generated-png-of-marble-roman-greek-statue-against_38774286.png">
+    </main>
+    <script>
+        function main() {
+            const form_container_events = document.querySelectorAll(".container");
+            renderDynamicFormEvents(form_container_events);
+        }
+
+        function DOMRenderizer() {
+            const login = (title, form, button) => {
+                title.innerHTML = "<p>Faça login!</p>";
+                form.innerHTML = 
+                `
+                <form>
+                    <section>
+                        <label for = "email">Nome:</label>
+                        <input type = "text" name = "email">
+                    </section>
+                     <section>
+                        <label for = "senha">Senha:</label>
+                        <input type = "password" name = "senha">
+                    </section>
+                    <section>
+                        <p>Ainda não se cadastrou? <a href = "#" class = "toggleForm">Cadastre-se!</a>
+                    </section>
+                </form>
+                `;
+                button.innerHTML = "Entrar";
+            }
+
+            const signUp = (title, form, button) => {
+                title.innerHTML = `<p>Cadastre-se!</p>`
+                form.innerHTML = `
+                <form>
+                    <section>
+                        <label for = "email">Nome:</label>
+                        <input type = "text" name = "email">
+                    </section>
+                     <section>
+                        <label for = "senha">Senha:</label>
+                        <input type = "password" name = "senha">
+                    </section>
+                    <section>
+                        <label for = "senha">Confirme sua senha: </label>
+                        <input type = "password" name = "senha">
+                    </section>
+                     <section>
+                        <p>Já possui conta? <a href = "#" class = "toggleForm">Faça login!</a>
+                    </section>
+                </form>
+                `;
+                button.innerHTML = "Cadastrar";
+            }
+
+            return {login, signUp}
+        }
+
+        function renderDynamicFormEvents(container) {
+            const render = DOMRenderizer();
+
+            if (container[0].className.includes("login") && container[1].className.includes("login")) {
+                render.login(container[0], container[1], container[2]);
+            }
+            else {
+                render.signUp(container[0], container[1], container[2]);
+            }
+
+            listenToSignUpToggle(container);
+        }
+
+        function listenToSignUpToggle(container) {
+            const toggler = document.querySelector(".toggleForm");
+            toggler.addEventListener("click", (e) => {
+                e.preventDefault();
+                for (let i = 0; i < container.length; i++) {
+                    if (container[i].className.includes("login")) {
+                        container[i].className = container[i].className.replace("login", "signup");
+                    }
+                    else {
+                        container[i].className = container[i].className.replace("signup", "login");
+                    }
+                }
+                renderDynamicFormEvents(container);
+            })
+        }
+        main()
+    </script>
+</body>
+</html>
