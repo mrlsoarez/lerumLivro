@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .scaled {
+            transform: scale(1.5);
+        }
+        .hidden {
+            display: none;
+        }
+        
+        .form-questionary {
+            height: 50%;
+        }
+        .form-questionary > div {
+            display: grid;
+            grid-template-columns: 40% 60%;
+            border: 5px solid red;
+            height: 40vh;
+        }
+
+        .form-questionary > div > section {
+            border: 5px solid black;
+        }
+
+        .form-questionary > div > section > img {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <main>
+        
+      
+
+        <hr>
+        <div class = "form-questionary hidden">
+            <h3> Quer aceitar este livro? </h3>
+            <div>
+                <section><img id = "img" src = "#"></section>
+                <section>
+                    <p id = "name"></p>
+                    <p id = "author"></p>
+                    <p id = "pages"></p>
+                    <button id = "send"> SIM </button>
+                </section>
+            </div>
+        </div>
+        <input type = "text">
+        <div class = "searches"></div>
+    </main>
+    <script src = "library.js"></script>
+</body>
+</html>

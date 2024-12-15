@@ -1,12 +1,18 @@
 function main() {
+
     const form_container_events = document.querySelectorAll(".container");
     const input = document.querySelector("#input");
+    const formDealer = formEvents();
+    
+    formDealer.renderDynamicFormEvents(form_container_events);
+    formDealer.gettingFormResults(input);
 
-    renderDynamicFormEvents(form_container_events);
-    gettingFormResults(input);
 }
 
 function DOMRenderizer() {
+
+    const main = document.querySelector("main");
+
     const login = (title, form, button) => {
         title.innerHTML = "<p>Faça login!</p>";
         form.innerHTML = 
@@ -26,6 +32,7 @@ function DOMRenderizer() {
         </form>
         `;
         button.innerHTML = "Entrar";
+        button.id = "login"
     }
 
     const signUp = (title, form, button) => {
@@ -50,76 +57,96 @@ function DOMRenderizer() {
         </form>
         `;
         button.innerHTML = "Cadastrar";
+        button.id = "register";
     }
-
-    return {login, signUp}
+    
+    const library = () => {
+        main.innerHTML = ""
+    }
+    return {login, signUp, library}
 }
 
-function renderDynamicFormEvents(container) {
-    const render = DOMRenderizer();
-
-    if (container[0].className.includes("login") && container[1].className.includes("login")) {
-        render.login(container[0], container[1], container[2]);
+function formEvents() {
+    function renderDynamicFormEvents(container) {
+        const render = DOMRenderizer();
+    
+        if (container[0].className.includes("login") && container[1].className.includes("login")) {
+            render.login(container[0], container[1], container[2]);
+        }
+        else {
+            render.signUp(container[0], container[1], container[2]);
+        }
+    
+        listenToSignUpToggle(container);
     }
-    else {
-        render.signUp(container[0], container[1], container[2]);
+
+    function listenToSignUpToggle(container) {
+        const toggler = document.querySelector(".toggleForm");
+        toggler.addEventListener("click", (e) => {
+            e.preventDefault();
+            for (let i = 0; i < container.length; i++) {
+                if (container[i].className.includes("login")) {
+                    container[i].className = container[i].className.replace("login", "signup");
+                }
+                else {
+                    container[i].className = container[i].className.replace("signup", "login");
+                }
+            }
+            renderDynamicFormEvents(container);
+        })
     }
 
-    listenToSignUpToggle(container);
-}
+    function gettingFormResults(btn) {
 
-function listenToSignUpToggle(container) {
-    const toggler = document.querySelector(".toggleForm");
-    toggler.addEventListener("click", (e) => {
-        e.preventDefault();
-        for (let i = 0; i < container.length; i++) {
-            if (container[i].className.includes("login")) {
-                container[i].className = container[i].className.replace("login", "signup");
+        let URL;
+    
+        btn.addEventListener("click", () => {
+    
+            if (btn.id == "login") {
+                URL = "http://localhost:3000/login"
             }
             else {
-                container[i].className = container[i].className.replace("signup", "login");
+                URL = "http://localhost:3000/register"
             }
-        }
-        renderDynamicFormEvents(container);
-    })
-}
-
-function gettingFormResults(btn) {
-    btn.addEventListener("click", () => {
-
-        const form = new FormData(document.querySelector("form"));
-        console.log(form)
-        const userData = {
-            email: form.get("email"),
-            password: form.get("senha")
-        };
-
-        let requestOptions = {
-            headers: {
-                'Content-Type': 'application/json',  
-            },
-            method: 'POST',
-            body: JSON.stringify(userData), 
-            mode: "cors"
-        };
-
-
-        /* register */
-        /*
-        fetch('http://localhost:3000/register', requestOptions).then(async (response) => {
-         
-                })
-
-        */
-        // login
-        fetch('http://localhost:3000/login', requestOptions).then(async (response) => {
-            if (response.status == 400) {
-                alert("Login mal sucedido!");
-                return;
-            }
-            alert("Login feito com sucesso!!")
+            
+            const form = new FormData(document.querySelector("form"));
+    
+            const userData = {
+                email: form.get("email"),
+                password: form.get("senha")
+            };
+    
+            let requestOptions = {
+                headers: {
+                    'Content-Type': 'application/json',  
+                },
+                method: 'POST',
+                body: JSON.stringify(userData), 
+                mode: "cors"
+            };
+    
+            fetch(URL, requestOptions).then(async (response) => {
+                const res = await response.json();
+                if (URL.includes("login") && response.status == 200) {
+                    DOMRenderizer().library()
+                }
+                else if (URL.includes("register") && response.status == 200) {
+                    //window.location.reload()
+                }
+                else if (response.status == 400) {
+                    alert(res.message)
+                }
+            })
         })
-    })
+    }
+
+    return {renderDynamicFormEvents, listenToSignUpToggle, gettingFormResults}
 }
+
+
+
+
+
+
 
 main()
