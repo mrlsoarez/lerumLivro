@@ -1,7 +1,8 @@
+var email = queryEmail();
+
 function main() {
     const input = document.querySelector("input");
     const body = document.querySelector(".searches");
-
     searchForBooks(input, body)
 }
 
@@ -61,7 +62,8 @@ function searchForBooks(input) {
             image: img.src,
             title: "",
             author: "",
-            pages: ""
+            pages: "",
+            user_mail: ""
         };
 
         img.addEventListener("mouseenter", () => {
@@ -77,7 +79,9 @@ function searchForBooks(input) {
             bookData.title = item.title;
             bookData.author = item.authors[0];
             bookData.pages = item.pageCount;
-            render.form_questionary(bookData)
+            bookData.user_mail = queryEmail();
+            console.log(bookData)
+            render.form_questionary(bookData);
         })
     }
 
@@ -96,8 +100,8 @@ function searchForBooks(input) {
     
 
 function addNewBook(data) {
-    const btn = document.querySelector("#send"); 
 
+    const btn = document.querySelector("#send"); 
     const URL = "http://localhost:3000/saveLibrary";
 
     let requestOptions = {
@@ -109,6 +113,7 @@ function addNewBook(data) {
         mode: "cors"
     };
 
+    console.log(requestOptions.body)
 
     btn.addEventListener("click", () => {
         fetch(URL, requestOptions).then(async (response) => {
@@ -117,6 +122,16 @@ function addNewBook(data) {
         })    
     })
 
+}
+
+function queryEmail() {
+    const URL = "http://localhost:3000/getEmail";
+    fetch(URL, {method: 'POST', mode: 'cors', sameSite: "strict"}).then(async (response) => {
+            const data = await response.json();
+            email = data.useremail;
+        }
+    )
+    return email;
 }
 
     

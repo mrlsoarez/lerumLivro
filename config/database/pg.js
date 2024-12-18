@@ -16,14 +16,16 @@ try {
 
 async function createTables() {
     const query = `CREATE TABLE IF NOT EXISTS userdata (
-        email VARCHAR(14) PRIMARY KEY,
+        email VARCHAR(55) PRIMARY KEY,
         password VARCHAR(255)
     );
     
     CREATE TABLE IF NOT EXISTS library (
         title VARCHAR(50) PRIMARY KEY,
         author VARCHAR(50),
-        pages INT
+        pages INT, 
+        useremail VARCHAR(50),
+        FOREIGN KEY (useremail) REFERENCES userdata(email)
     );`;
     try {
         clients.query(query)

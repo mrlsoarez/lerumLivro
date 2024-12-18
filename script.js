@@ -24,7 +24,7 @@ function DOMRenderizer() {
             </section>
              <section>
                 <label for = "password">Senha:</label>
-                <input type = "password" name = "senha">
+                <input type = "password" name = "password">
             </section>
             <section>
                 <p>Ainda não se cadastrou? <a href = "#" class = "toggleForm">Cadastre-se!</a>
@@ -113,7 +113,7 @@ function formEvents() {
     
             const userData = {
                 email: form.get("email"),
-                password: form.get("senha")
+                password: form.get("password")
             };
     
             let requestOptions = {
@@ -131,7 +131,7 @@ function formEvents() {
                     DOMRenderizer().library()
                 }
                 else if (URL.includes("register") && response.status == 200) {
-                    //window.location.reload()
+                    window.location.reload()
                 }
                 else if (response.status == 400) {
                     alert(res.message)
